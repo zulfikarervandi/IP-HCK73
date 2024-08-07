@@ -28,22 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       dateOfBirth: {
         type: DataTypes.DATE,
-        allowNull: false,
-        validate: {
-          notNull: {
-            msg: "Date of birth is required",
-          },
-          notEmpty: {
-            msg: "Date of birth cannot be empty",
-          },
-          isDate: {
-            msg: "Invalid date format",
-          },
-          isBefore: {
-            args: new Date().toISOString(),
-            msg: "Date of birth cannot be in the future",
-          },
-        },
+        
       },
       email: {
         type: DataTypes.STRING,

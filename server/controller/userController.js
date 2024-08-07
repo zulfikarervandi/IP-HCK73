@@ -1,6 +1,10 @@
 const { comparePassword, hashPassword } = require("../helper/bcrypt");
 const { signToken } = require("../helper/jwt");
 const { User } = require("../models");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client();
 
 class UserController {
   static async register(req, res, next) {
@@ -34,23 +38,50 @@ class UserController {
       next(error);
     }
   }
+  static async gLogin(req, res, next) {
+    const { googleToken, email } = req.body;
+    try {
+      const ticket = await client.verifyIdToken({
+        idToken: googleToken,
+        audience: process.env.GOOGLE_CLIENT_ID,
+      });
+      const payload = ticket.getPayload();
+      const [user, created] = await User.findOrCreate({
+        where: { email },
+        defaults: {
+          username: payload.name,
+          email: payload.email,
+          picture: payload.picture,
+          provider: "google",
+          password: "google_id",
+        },
+        hooks: false,
+      });
+
+      const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+      res.status(created ? 201 : 200).json({ access_token: token });
+    } catch (error) {
+      //   res.status(500).json({ message: "Internal server error" });
+      console.log(error);
+    }
+  }
   static async updateUser(req, res, next) {
     const { id } = req.params;
 
     try {
-        let data = User.findByPk(id)
-        if (!data) {
-            throw { name: `not-found` };
-        }
-        await User.update(req.body, {
-          where: {
-            id: id,
-          },
-          individualHooks: true,
-        });
-        res.status(200).json({message: "User has been updated"})
+      let data = User.findByPk(id);
+      if (!data) {
+        throw { name: `not-found` };
+      }
+      await User.update(req.body, {
+        where: {
+          id: id,
+        },
+        individualHooks: true,
+      });
+      res.status(200).json({ message: "User has been updated" });
     } catch (error) {
-        next(error)
+      next(error);
     }
   }
 }

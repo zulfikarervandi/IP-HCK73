@@ -1,5 +1,8 @@
 const { Favorites } = require("../models");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
+// Access your API key as an environment variable (see "Set up your API key" above)
+const genAI = new GoogleGenerativeAI(process.env.geminiApiKey);
 class MovieController {
   static async addFavorite(req, res, next) {
     try {
@@ -20,7 +23,23 @@ class MovieController {
       next(error);
     }
   }
+  static async geminiAi(req,res,next){
+    try {
+        async function run() {
+          const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+          const { prompts } = req.body
+          const prompt = `don't answer anything that not about movie recommendation ${prompts}`;
+          const result = await model.generateContent(prompt);
+          const response = await result.response;
+          const text = response.text();
+          console.log(text);
+        }
 
+        run();
+    } catch (error) {
+        next(error)   
+    }
+  }
   static async getMovieById(req, res, next) {
     try {
       let data = await Favorites.findAll({where: 
