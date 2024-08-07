@@ -3,7 +3,15 @@ const { Favorites } = require("../models");
 class MovieController {
   static async addFavorite(req, res, next) {
     try {
-        req.body.userId = req.user.id;
+      req.body.userId = req.user.id;
+      const { movieId } = req.body;
+      const userId = req.user.id;
+      const existingFavorite = await Favorites.findOne({
+        where: { userId, movieId },
+      });
+      if (existingFavorite) {
+        throw { name: "already-add" };
+      }
       let data = await Favorites.create(req.body, {
         userId: req.user.id,
       });
@@ -14,9 +22,12 @@ class MovieController {
   }
 
   static async getMovieById(req, res, next) {
-      const { id } = req.params;
     try {
-      let data = await Favorites.findByPk(id);
+      let data = await Favorites.findAll({where: 
+        {
+            userId: req.user.id
+        }
+      });
       if (!data) {
         throw { name: `not-found` };
       }
@@ -27,6 +38,7 @@ class MovieController {
   }
 
   static async deleteFavorite(req, res, next) {
+      const { id } = req.params
     try {
       let data = await Favorites.findByPk(id);
       if (!data) {
