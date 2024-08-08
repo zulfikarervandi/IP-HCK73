@@ -31,10 +31,14 @@ function errorHandler(error, req, res, next) {
     case "forbidden":
       status = 403;
       message = "UnAuthorize";
-      break
+      break;
     case "already-add":
-        status = 400
-        message = "Movie already in favorites";
+      status = 400;
+      message = "Movie already added to favorites";
+      break;
+    case "no-email/password":
+      status = 400;
+      message = "email/password is required";
       break;
   }
   res.status(status).json({ message });

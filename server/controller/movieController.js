@@ -1,8 +1,7 @@
 const { Favorites } = require("../models");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-
-// Access your API key as an environment variable (see "Set up your API key" above)
 const genAI = new GoogleGenerativeAI(process.env.geminiApiKey);
+
 class MovieController {
   static async addFavorite(req, res, next) {
     try {
@@ -50,7 +49,7 @@ class MovieController {
       if (!data) {
         throw { name: `not-found` };
       }
-      res.status(201).json(data);
+      res.status(200).json(data);
     } catch (error) {
       next(error);
     }
@@ -68,7 +67,7 @@ class MovieController {
           id: id,
         },
       });
-      res.status(200).json({ message: `Deleted your fovorite movie` });
+      res.status(200).json({ message: `Deleted your favorite movie` });
     } catch (error) {
       next(error);
     }

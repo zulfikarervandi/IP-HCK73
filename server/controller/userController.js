@@ -16,7 +16,7 @@ class UserController {
         email,
         password,
       });
-      res.status(200).json({ id: data.id, email: data.email });
+      res.status(201).json({ id: data.id, email: data.email });
     } catch (error) {
       next(error);
     }
@@ -24,6 +24,12 @@ class UserController {
   static async login(req, res, next) {
     try {
       const { email, password } = req.body;
+      if (!email) {
+        throw { name: "no-email/password" };
+      }
+      if (!password) {
+        throw { name: "no-email/password" };
+      }
       const user = await User.findOne({ where: { email } });
       if (!user) {
         throw { name: "login-failed" };
