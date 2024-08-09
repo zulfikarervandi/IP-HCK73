@@ -1,0 +1,42 @@
+[
+  {
+    "username": "johndoe",
+    "dateOfBirth": "1990-01-15",
+    "email": "john.doe@example.com",
+    "password": "hashedpassword123",
+    "createdAt": "2023-08-01T10:00:00Z",
+    "updatedAt": "2023-08-01T10:00:00Z"
+  },
+  {
+    "username": "janedoe",
+    "dateOfBirth": "1992-05-20",
+    "email": "jane.doe@example.com",
+    "password": "hashedpassword456",
+    "createdAt": "2023-08-02T11:30:00Z",
+    "updatedAt": "2023-08-02T11:30:00Z"
+  },
+  {
+    "username": "bobsmith",
+    "dateOfBirth": "1985-11-30",
+    "email": "bob.smith@example.com",
+    "password": "hashedpassword789",
+    "createdAt": "2023-08-03T09:15:00Z",
+    "updatedAt": "2023-08-03T09:15:00Z"
+  },
+  {
+    "username": "alicejohnson",
+    "dateOfBirth": "1988-07-10",
+    "email": "alice.johnson@example.com",
+    "password": "hashedpasswordabc",
+    "createdAt": "2023-08-04T14:45:00Z",
+    "updatedAt": "2023-08-04T14:45:00Z"
+  },
+  {
+    "username": "charliebrwn",
+    "dateOfBirth": "1995-03-25",
+    "email": "charlie.brown@example.com",
+    "password": "hashedpasswordxyz",
+    "createdAt": "2023-08-05T16:20:00Z",
+    "updatedAt": "2023-08-05T16:20:00Z"
+  }
+]

@@ -1,0 +1,6 @@
+client id = 83737433458-kk9q32d698cn9af8l2h3das9a8gc5oko.apps.googleusercontent.com
+client secret = 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
+
+gemini
+
+AIzaSyDbjYpyXjKqdzSmGEPSoPBob_dR0GhcpSs
