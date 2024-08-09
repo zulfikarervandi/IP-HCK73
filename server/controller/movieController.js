@@ -45,13 +45,13 @@ class MovieController {
       async function run() {
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
         const { prompts } = req.body;
+        console.log(prompts);
         const prompt = `don't answer anything that not about movie recommendation ${prompts}`;
         const result = await model.generateContent(prompt);
         const response = await result.response;
         const text = response.text();
-        console.log(text);
+        res.status(200).json(text)
       }
-
       run();
     } catch (error) {
       next(error);
