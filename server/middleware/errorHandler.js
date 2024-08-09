@@ -1,4 +1,5 @@
 function errorHandler(error, req, res, next) {
+  console.log(error,"????????");
   let status = error.status || 500;
   let message = error.message || `Server internal error`;
   switch (error.name) {

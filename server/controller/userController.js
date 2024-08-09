@@ -9,6 +9,7 @@ const client = new OAuth2Client();
 class UserController {
   static async register(req, res, next) {
     try {
+
       const { username, dateOfBirth, email, password } = req.body;
       let data = await User.create({
         username,
@@ -18,7 +19,7 @@ class UserController {
       });
       res.status(201).json({ id: data.id, email: data.email });
     } catch (error) {
-      next(error);
+      next(error);      
     }
   }
   static async login(req, res, next) {
@@ -51,9 +52,11 @@ class UserController {
         idToken: googleToken,
         audience: process.env.GOOGLE_CLIENT_ID,
       });
+      console.log(ticket,">>>>>>");
+      
       const payload = ticket.getPayload();
       const [user, created] = await User.findOrCreate({
-        where: { email },
+        where: { email: payload.email },
         defaults: {
           username: payload.name,
           email: payload.email,
@@ -69,6 +72,20 @@ class UserController {
     } catch (error) {
       //   res.status(500).json({ message: "Internal server error" });
       console.log(error);
+    }
+  }
+  static async getUserById(req,res,next){
+    try {
+      let id = req.user.id
+      let data = await User.findByPk(id);
+      console.log(data,id);
+      
+      if (!data) {
+        throw { name: `not-found` };
+      }
+      res.status(200).json(data)
+    } catch (error) {
+      next(error)
     }
   }
   static async updateUser(req, res, next) {
