@@ -1,0 +1,8 @@
+JWT_SECRET : hayolo;
+GOOGLE_CLIENT_ID :
+  83737433458 - kk9q32d698cn9af8l2h3das9a8gc5oko.apps.googleusercontent.com;
+GOOGLE_CLIENT_SECRET : GOCSPX - VdGUDCT_T1A0b5735nEDGH6k3jg4;
+geminiApiKey : AIzaSyDbjYpyXjKqdzSmGEPSoPBob_dR0GhcpSs;
+TEST_GOOGLE_CLIENT_ID :
+  83737433458 - kk9q32d698cn9af8l2h3das9a8gc5oko.apps.googleusercontent.com;
+TEST_GOOGLE_CLIENT_SECRET : GOCSPX - VdGUDCT_T1A0b5735nEDGH6k3jg4;
